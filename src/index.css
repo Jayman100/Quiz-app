@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Regular";
+  src: url("./assets/fonts/static/Rubik-Regular.ttf") format("woff2-variations");
+}
+@font-face {
+  font-family: "Italic";
+  src: url("./assets/fonts/static/Rubik-Italic.ttf") format("woff2-variations");
+}
+@font-face {
+  font-family: "Medium";
+  src: url("./assets/fonts/static/Rubik-Medium.ttf") format("woff2-variations");
+}
+@font-face {
+  font-family: "MyVariableFont";
+  src: url("./assets/fonts/Rubik-VariableFont_wght.ttf")
+    format("woff2-variations");
+}
+
+html {
+  font-size: 62.5%;
+  font-family: "MyVariableFont";
+}
+
+body {
+  background-image: url("./assets/images/pattern-background-desktop-light.svg");
+  background-color: #f4f6fa;
+}
+
+.quiz {
+  max-width: 100rem;
+  margin: 4rem auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.quiz__header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.quiz__body {
+  display: flex;
+  /* justify-content: space-between; */
+  gap: 10%;
+}
+
+.welcome-text {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+}
+
+.welcome-text h2 {
+  display: flex;
+  flex-direction: column;
+  font-size: 5rem;
+}
+
+.quiz-title {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.quiz-title > div {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 1.5rem;
+}
+/* Theme */
+
+.theme {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.toggle {
+  display: inline-block;
+  border-radius: 10rem;
+  width: 60px;
+  height: 34px;
+  position: relative;
+  padding: 1rem;
+}
+
+.toggle input {
+  opacity: 0;
+}
+.toggle__slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #a729f5;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 10rem;
+}
+
+.toggle__slider::before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.toggle input:checked + .toggle__slider::before {
+  transform: translateX(26px);
+}
+/* .toggle input:checked + .toggle__slider {
+  background-color: #000;
+} */
