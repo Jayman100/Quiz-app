@@ -1,7 +1,7 @@
-import darkSun from "../assets/images/icon-sun-dark.svg";
-import lightSun from "../assets/images/icon-sun-light.svg";
-import lightMoon from "../assets/images/icon-moon-light.svg";
-import darkMoon from "../assets/images/icon-moon-dark.svg";
+import darkSun from "../../public/assets/images/icon-sun-dark.svg";
+import lightSun from "../../public/assets/images/icon-sun-light.svg";
+import lightMoon from "../../public/assets/images/icon-moon-light.svg";
+import darkMoon from "../../public/assets/images/icon-moon-dark.svg";
 
 function ToggleButton() {
   return (

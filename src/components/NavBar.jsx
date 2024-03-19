@@ -5,7 +5,7 @@ function NavBar({ selectedQuiz }) {
   console.log(selectedQuiz);
   return (
     <nav className="quiz__header">
-      {selectedQuiz && <QuizTitle selectedQuiz={selectedQuiz} />}
+      {selectedQuiz.title && <QuizTitle selectedQuiz={selectedQuiz} />}
       <ToggleButton />
     </nav>
   );
@@ -13,8 +13,13 @@ function NavBar({ selectedQuiz }) {
 
 function QuizTitle({ selectedQuiz }) {
   return (
-    <div>
-      <img src={selectedQuiz.icon} alt={selectedQuiz.title} />
+    <div className="selected-quiz">
+      <div
+        className="selected-quiz__img"
+        style={{ background: `${selectedQuiz.color}` }}
+      >
+        {<img src={selectedQuiz.icon} alt={selectedQuiz.title} />}
+      </div>
       <p>{selectedQuiz.title}</p>
     </div>
   );

@@ -1,14 +1,19 @@
 import NavBar from "./components/NavBar";
+import Quiz from "./components/Quiz";
 import QuizFrontPage from "./components/QuizFrontPage";
 import { useState } from "react";
 
 function App() {
-  const [selectedQuiz, setSelectedQuiz] = useState();
+  const [selectedQuiz, setSelectedQuiz] = useState({});
 
   return (
     <div className="quiz">
       <NavBar selectedQuiz={selectedQuiz} />
-      <QuizFrontPage setSelectedQuiz={setSelectedQuiz} />
+      {!selectedQuiz.title ? (
+        <QuizFrontPage setSelectedQuiz={setSelectedQuiz} />
+      ) : (
+        <Quiz selectedQuiz={selectedQuiz} />
+      )}
     </div>
   );
 }

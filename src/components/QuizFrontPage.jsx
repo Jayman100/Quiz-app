@@ -29,8 +29,18 @@ function QuizTitle({ onSelect }) {
   return (
     <div className="quiz-title">
       {data.quizzes.map((data) => (
-        <div key={data.title} role="button" onClick={() => onSelect(data)}>
-          <img src={data.icon} alt={data.title} />
+        <div
+          key={data.title}
+          role="button"
+          onClick={() => onSelect(data)}
+          className="quiz-tite__box"
+        >
+          <div
+            className="quiz-title__box--img"
+            style={{ background: `${data.color}` }}
+          >
+            <img src={data.icon} alt={data.title} />
+          </div>
           <p>{data.title}</p>
         </div>
       ))}
