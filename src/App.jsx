@@ -1,20 +1,25 @@
 import NavBar from "./components/NavBar";
 import Quiz from "./components/Quiz";
 import QuizFrontPage from "./components/QuizFrontPage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [selectedQuiz, setSelectedQuiz] = useState({});
 
   return (
-    <div className="quiz">
-      <NavBar selectedQuiz={selectedQuiz} />
-      {!selectedQuiz.title ? (
-        <QuizFrontPage setSelectedQuiz={setSelectedQuiz} />
-      ) : (
-        <Quiz selectedQuiz={selectedQuiz} />
-      )}
-    </div>
+    <section className="panel dark">
+      <div className="quiz">
+        {!selectedQuiz.title && (
+          <QuizFrontPage
+            selectedQuiz={selectedQuiz}
+            setSelectedQuiz={setSelectedQuiz}
+          />
+        )}
+        {selectedQuiz.title && (
+          <Quiz selectedQuiz={selectedQuiz} setSelectedQuiz={setSelectedQuiz} />
+        )}
+      </div>
+    </section>
   );
 }
 

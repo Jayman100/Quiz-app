@@ -1,14 +1,18 @@
 import data from "../data.json";
+import NavBar from "./NavBar";
 
-function QuizFrontPage({ setSelectedQuiz }) {
+function QuizFrontPage({ selectedQuiz, setSelectedQuiz }) {
   function handleSelectedQuiz(quiz) {
     setSelectedQuiz(quiz);
   }
   return (
-    <div className="quiz__body">
-      <WelcomeText />
-      <QuizTitle onSelect={handleSelectedQuiz} />
-    </div>
+    <>
+      <NavBar selectedQuiz={selectedQuiz} />
+      <div className="quiz__body">
+        <WelcomeText />
+        <QuizTitle onSelect={handleSelectedQuiz} />
+      </div>
+    </>
   );
 }
 
@@ -33,7 +37,7 @@ function QuizTitle({ onSelect }) {
           key={data.title}
           role="button"
           onClick={() => onSelect(data)}
-          className="quiz-tite__box"
+          className="quiz-title__box dark"
         >
           <div
             className="quiz-title__box--img"

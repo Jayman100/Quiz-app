@@ -1,50 +1,96 @@
-import data from "../data.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Button from "../utils/Button";
+import Score from "./Score";
+import NavBar from "./NavBar";
 
-function Quiz({ selectedQuiz }) {
+function Quiz({ selectedQuiz, setSelectedQuiz }) {
   const [questionNum, setQuestionNum] = useState(0);
   const [selectedOption, setSelectedOption] = useState("");
   const [options, setOptions] = useState([]);
+  const [correctOptions, setCorrectOptions] = useState([]);
+  const [wrongOptions, setWrongOptions] = useState([]);
   const [right, setRight] = useState(false);
   const [wrong, setWrong] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const [ispicked, setIsPicked] = useState(false);
 
   const answer = selectedQuiz.questions.map((option) => option.answer);
 
+  useEffect(() => {
+    if (selectedOption) {
+      setIsPicked(false);
+    }
+  }, [selectedOption]);
+
   function handleSubmit() {
+    if (selectedOption === "") {
+      setIsPicked(true);
+      return;
+    }
     setOptions((options) => [...options, selectedOption]);
 
-    if (answer.includes(selectedOption)) setRight(true);
-    if (!answer.includes(selectedOption)) setWrong(true);
-    setIsSubmitted(true);
-    setDisabled(true);
+    if (answer.includes(selectedOption))
+      setCorrectOptions((correctOptions) => [
+        ...correctOptions,
+        selectedOption,
+      ]);
+
+    if (!answer.includes(selectedOption))
+      setWrongOptions((wrongOptions) => [...wrongOptions, selectedOption]);
+
+    if (answer.includes(selectedOption) && selectedOption) setRight(true);
+    if (!answer.includes(selectedOption) && selectedOption) setWrong(true);
+    if (selectedOption) setIsSubmitted(true);
+    if (selectedOption) setDisabled(true);
   }
 
   function handleNext() {
-    setQuestionNum((questionNum) => questionNum + 1);
+    if (questionNum < 9) setQuestionNum((questionNum) => questionNum + 1);
     setIsSubmitted(false);
     setDisabled(false);
     setRight(false);
     setWrong(false);
+    setSelectedOption("");
+    setIsPicked(false);
   }
 
   return (
-    <div className="question">
-      <QuestionBox selectedQuiz={selectedQuiz} questionNum={questionNum} />
-      <QuestionOptions
-        selectedQuiz={selectedQuiz}
-        questionNum={questionNum}
-        onSubmit={handleSubmit}
-        onNext={handleNext}
-        setSelectedOption={setSelectedOption}
-        selectedOption={selectedOption}
-        right={right}
-        wrong={wrong}
-        isSubmitted={isSubmitted}
-        disabled={disabled}
-      />
-    </div>
+    <>
+      <NavBar selectedQuiz={selectedQuiz} />
+      <div className="question">
+        {options.length === 10 && (
+          <Score
+            correct={correctOptions}
+            wrong={wrongOptions}
+            options={options}
+            selectedQuiz={selectedQuiz}
+            setSelectedQuiz={setSelectedQuiz}
+          />
+        )}
+        {!(options.length === 10) && (
+          <>
+            <QuestionBox
+              selectedQuiz={selectedQuiz}
+              questionNum={questionNum}
+            />
+            <QuestionOptions
+              selectedQuiz={selectedQuiz}
+              questionNum={questionNum}
+              onSubmit={handleSubmit}
+              onNext={handleNext}
+              setSelectedOption={setSelectedOption}
+              selectedOption={selectedOption}
+              right={right}
+              wrong={wrong}
+              isSubmitted={isSubmitted}
+              disabled={disabled}
+              ispicked={ispicked}
+            />
+          </>
+        )}
+      </div>
+    </>
   );
 }
 
@@ -75,8 +121,10 @@ function QuestionOptions({
   isSubmitted,
   onNext,
   disabled,
+  ispicked,
 }) {
   const optionsLetters = ["A", "B", "C", "D"];
+
   return (
     <div className="question__options">
       {selectedQuiz.questions[questionNum].options.map((option, i) => (
@@ -93,24 +141,26 @@ function QuestionOptions({
         />
       ))}
 
-      {!isSubmitted ? (
-        <Button type="submit" onSubmit={onSubmit}>
+      {!isSubmitted && (
+        <Button type="submit" onSubmit={onSubmit} disabled={!selectedOption}>
           Submit answer
         </Button>
-      ) : (
+      )}
+      {isSubmitted && (
         <Button type="submit" onSubmit={onNext}>
           Next Question
         </Button>
       )}
-    </div>
-  );
-}
 
-function Button({ children, onSubmit }) {
-  return (
-    <button type="submit" onClick={onSubmit} className="btn-submit">
-      {children}
-    </button>
+      <div className="error">
+        {ispicked && (
+          <>
+            <ValidationImage src="../public/assets/images/icon-incorrect.svg" />
+            <span>Please select an answer</span>
+          </>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -126,34 +176,61 @@ function Options({
 }) {
   const [hover, setHover] = useState(false);
 
+  let className;
+  if (right && selectedOption === option) className = "correct__option";
+  if (wrong && selectedOption === option) className = "incorrect__option";
+
+  let letterClassName;
+
+  if (hover) letterClassName = "hover";
+  if (right && selectedOption === option) letterClassName = "correct__letter";
+  if (wrong && selectedOption === option) letterClassName = "incorrect__letter";
+  if (selectedOption === option && !right && !wrong)
+    letterClassName = "checked__letter";
+
   return (
     <label
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       htmlFor={option}
-      className={`option__label ${selectedOption === option && "checked"}`}
+      className={`option__label ${
+        selectedOption === option && "checked"
+      } ${className} dark`}
     >
-      <input
-        type="checkbox"
-        id={option}
-        checked={selectedOption === option}
-        onChange={() => setSelectedOption(option)}
-        disabled={disabled}
-      />
-      <p
-        className="option__letter"
-        style={{ color: hover && "#a729f5", background: hover && "#f6e7ff" }}
-      >
-        {letter}
-      </p>
-      <p className="option">{option}</p>
+      <div className="option__box">
+        <input
+          type="checkbox"
+          id={option}
+          checked={selectedOption === option}
+          onChange={() => setSelectedOption(option)}
+          disabled={disabled}
+        />
+        <p className={`option__letter ${letterClassName} dark`}>{letter}</p>
+        <p className="option">{option}</p>
+      </div>
 
       <div>
-        <p>{right && selectedOption === option ? "correct" : null}</p>
-        <p>{wrong && selectedOption === option ? "wrong" : null}</p>
-        <p>{wrong && answer === option ? "correct" : null}</p>
+        <p>
+          {right && selectedOption === option && (
+            <ValidationImage src="../public/assets/images/icon-correct.svg" />
+          )}
+        </p>
+        <p>
+          {wrong && selectedOption === option && (
+            <ValidationImage src="../public/assets/images/icon-incorrect.svg" />
+          )}
+        </p>
+        <p>
+          {wrong && answer === option && (
+            <ValidationImage src="../public/assets/images/icon-correct.svg" />
+          )}
+        </p>
       </div>
     </label>
   );
+}
+
+function ValidationImage({ src }) {
+  return <img style={{ height: "24px" }} src={src} alt="validation icon" />;
 }
 export default Quiz;
