@@ -426,9 +426,6 @@ html {
 .toggle input:checked + .toggle__slider::before {
   transform: translateX(26px);
 }
-/* .toggle input:checked + .toggle__slider {
-  background-color: #000;
-} */
 
 /* RESPONSIVENESS */
 
@@ -492,5 +489,24 @@ html {
 
   .panel.dark {
     background-image: url("../public/assets/images/pattern-background-mobile-dark.svg");
+  }
+
+  .quiz {
+    padding: 2rem 2rem 0;
+  }
+
+  .toggle {
+    width: 50px;
+    height: 24px;
+  }
+
+  .toggle__slider::before {
+    height: 16px;
+    width: 16px;
+  }
+
+  .icon__moon,
+  .icon__sun {
+    height: 2rem;
   }
 }

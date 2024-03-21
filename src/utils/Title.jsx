@@ -5,7 +5,13 @@ function Title({ selectedQuiz }) {
         className="selected-quiz__img"
         style={{ background: `${selectedQuiz.color}` }}
       >
-        {<img src={selectedQuiz.icon} alt={selectedQuiz.title} />}
+        {
+          <img
+            className="icon__title"
+            src={selectedQuiz.icon}
+            alt={selectedQuiz.title}
+          />
+        }
       </div>
       <p className="selected-quiz__title">{selectedQuiz.title}</p>
     </div>

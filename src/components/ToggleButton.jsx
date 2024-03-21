@@ -18,7 +18,11 @@ function ToggleButton() {
 
   return (
     <div className="theme">
-      <img src={theme === "dark" ? lightSun : darkSun} alt="dark sun" />
+      <img
+        className="icon__sun"
+        src={theme === "dark" ? lightSun : darkSun}
+        alt="dark sun"
+      />
       <label htmlFor="toggle" className="toggle">
         <input
           type="checkbox"
@@ -28,7 +32,11 @@ function ToggleButton() {
         />
         <div className="toggle__slider"></div>
       </label>
-      <img src={theme === "dark" ? lightMoon : darkMoon} alt="dark moon" />
+      <img
+        className="icon__moon"
+        src={theme === "dark" ? lightMoon : darkMoon}
+        alt="dark moon"
+      />
     </div>
   );
 }
