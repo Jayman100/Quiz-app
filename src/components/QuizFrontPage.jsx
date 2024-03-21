@@ -51,7 +51,7 @@ function QuizTitle({ onSelect }) {
             className="quiz-title__box--img"
             style={{ background: `${data.color}` }}
           >
-            <img src={data.icon} alt={data.title} />
+            <img className="icon__title" src={data.icon} alt={data.title} />
           </div>
           <p className="quiz-title__box--text">{data.title}</p>
         </div>
