@@ -7,7 +7,7 @@ function Title({ selectedQuiz }) {
       >
         {<img src={selectedQuiz.icon} alt={selectedQuiz.title} />}
       </div>
-      <p>{selectedQuiz.title}</p>
+      <p className="selected-quiz__title">{selectedQuiz.title}</p>
     </div>
   );
 }

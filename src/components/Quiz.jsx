@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from "../utils/Button";
 import Score from "./Score";
 import NavBar from "./NavBar";
+import ThemeContext from "../context/ThemeContext";
 
 function Quiz({ selectedQuiz, setSelectedQuiz }) {
   const [questionNum, setQuestionNum] = useState(0);
@@ -95,15 +96,19 @@ function Quiz({ selectedQuiz, setSelectedQuiz }) {
 }
 
 function QuestionBox({ selectedQuiz, questionNum }) {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <div className="question__box">
       <div className="question__text">
-        <p>{`Question ${questionNum + 1} of ${
-          selectedQuiz.questions.length
-        }`}</p>
-        <h1>{selectedQuiz.questions[questionNum].question}</h1>
+        <p className={`question__text--num ${theme}`}>{`Question ${
+          questionNum + 1
+        } of ${selectedQuiz.questions.length}`}</p>
+        <h1 className="question__text--head">
+          {selectedQuiz.questions[questionNum].question}
+        </h1>
       </div>
-      <div className="question-bar">
+      <div className={`question-bar ${theme}`}>
         <div style={{ width: `${(questionNum + 1) * 10}%` }}>&nbsp;</div>
       </div>
     </div>
@@ -175,6 +180,7 @@ function Options({
   wrong,
 }) {
   const [hover, setHover] = useState(false);
+  const { theme } = useContext(ThemeContext);
 
   let className;
   if (right && selectedOption === option) className = "correct__option";
@@ -195,7 +201,7 @@ function Options({
       htmlFor={option}
       className={`option__label ${
         selectedOption === option && "checked"
-      } ${className} dark`}
+      } ${className} ${theme}`}
     >
       <div className="option__box">
         <input
@@ -205,7 +211,7 @@ function Options({
           onChange={() => setSelectedOption(option)}
           disabled={disabled}
         />
-        <p className={`option__letter ${letterClassName} dark`}>{letter}</p>
+        <p className={`option__letter ${letterClassName} ${theme}`}>{letter}</p>
         <p className="option">{option}</p>
       </div>
 

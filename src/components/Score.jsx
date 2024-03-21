@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "../utils/Button";
 import Title from "../utils/Title";
 import App from "../App";
+import ThemeContext from "../context/ThemeContext";
 
 function Score({ wrong, correct, options, selectedQuiz, setSelectedQuiz }) {
   const [isCompleted, setIsCompleted] = useState(false);
@@ -40,16 +41,20 @@ function ScoreText() {
 }
 
 function ScoreStat({ selectedQuiz, correct, options, onPlay }) {
+  const { theme } = useContext(ThemeContext);
+
   return (
     <div className="score__stat">
-      <div className="score__stat--box">
+      <div className={`score__stat--box ${theme}`}>
         <div>
           <Title selectedQuiz={selectedQuiz} />
         </div>
 
-        <div>
-          <h2>{correct.length}</h2>
-          <p>{`out of ${options.length}`}</p>
+        <div className="score__num">
+          <h2 className="correct__text">{correct.length}</h2>
+          <p
+            className={`option__text ${theme}`}
+          >{`out of ${options.length}`}</p>
         </div>
       </div>
 
