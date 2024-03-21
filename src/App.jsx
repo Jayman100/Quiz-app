@@ -9,7 +9,7 @@ function App() {
   const [theme, setTheme] = useState(() => {
     const storedTheme = JSON.parse(localStorage.getItem("theme"));
 
-    return storedTheme[0];
+    return storedTheme ? storedTheme[0] : "";
   });
 
   // const storedTheme = JSON.parse(localStorage.getItem("theme"));
