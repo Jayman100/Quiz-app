@@ -12,10 +12,6 @@ function App() {
     return storedTheme ? storedTheme[0] : "";
   });
 
-  // const storedTheme = JSON.parse(localStorage.getItem("theme"));
-
-  // console.log(storedTheme);
-
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <section className={`panel ${theme}`}>

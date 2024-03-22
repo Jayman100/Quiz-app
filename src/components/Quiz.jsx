@@ -237,6 +237,6 @@ function Options({
 }
 
 function ValidationImage({ src }) {
-  return <img style={{ height: "24px" }} src={src} alt="validation icon" />;
+  return <img className="validation__icon" src={src} alt="validation icon" />;
 }
 export default Quiz;
