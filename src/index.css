@@ -201,7 +201,7 @@ html {
 
 .question__options label {
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   background-color: #fff;
   padding: 0.5rem 0.5rem 0.5rem 0;
   border-radius: 1.4rem;
@@ -224,14 +224,18 @@ html {
 .option__letter {
   font-size: 1.8rem;
   background-color: #f4f6fa;
-  height: 3.2rem;
-  width: 3.2rem;
+  /* height: 3.2rem;
+  width: 3.2rem; */
   display: flex;
   align-items: center;
   justify-content: center;
-  /* padding: 0.6rem 1.2rem; */
+  padding: 0.6rem 1.2rem;
   border-radius: 5px;
   transition: all 0.3s;
+}
+
+.option {
+  margin-left: 0.5rem;
 }
 
 .option__letter.hover {
@@ -426,7 +430,7 @@ html {
 
 /* RESPONSIVENESS */
 
-/* small Pc */
+/* SMALL Pc */
 @media (max-width: 62.5em) {
   html {
     font-size: 56%;
@@ -480,12 +484,14 @@ html {
   .question__box {
     gap: 3rem;
   }
-  /* 
-  .question__options label {
-    gap: 1rem;
+  .btn-submit:hover {
+    background-color: #a729f5;
+  }
 
-    padding: 1rem 1rem 1rem 0;
-  } */
+  .option__letter.hover {
+    background-color: #f4f6fa;
+    color: #313e51;
+  }
 }
 
 @media (max-width: 23.44em) {

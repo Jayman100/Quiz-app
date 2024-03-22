@@ -1,7 +1,6 @@
-import NavBar from "./components/NavBar";
 import Quiz from "./components/Quiz";
 import QuizFrontPage from "./components/QuizFrontPage";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ThemeContext from "./context/ThemeContext";
 
 function App() {
